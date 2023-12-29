@@ -73,6 +73,7 @@ void set_candidate(Cell *cell, int value)
     cell->num_candidates += 1;
 }
 
+
 void unset_candidate(Cell *cell, int value)
 {
     cell->candidates[value - 1] = 0;
