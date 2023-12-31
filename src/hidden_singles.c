@@ -29,7 +29,9 @@ int find_hidden_single_values(Cell **p_cells, int *hidden_single_values) {
 }
 bool is_processed(Cell *cell, HiddenSingle *processed_cells,int processed_count) {
     for (int i = 0; i < processed_count; ++i) {
+        
         if (processed_cells[i].p_cell == cell) {
+
             return true;
         }
 
@@ -41,11 +43,18 @@ void find_hidden_single(Cell **p_cells, HiddenSingle *p_hidden_singles, int *p_c
     int hidden_single_values[BOARD_SIZE];
     int num_hidden_single_values = find_hidden_single_values(p_cells, hidden_single_values);
     for (int i = 0; i < BOARD_SIZE; i++) {
+
         if (p_cells[i]->num_candidates > 1 && !is_processed(p_cells[i], processed_cells, *processed_count)) {
+
             int *candidates = get_candidates(p_cells[i]);  
             for (int j = 0; j < num_hidden_single_values; j++) {
                 if (is_candidate(p_cells[i], hidden_single_values[j])) {
+
+
                     p_hidden_singles[*p_counter].p_cell = p_cells[i];
+
+
+
                     p_hidden_singles[*p_counter].value = hidden_single_values[j];
                     (*p_counter)++;
                     processed_cells[*processed_count].p_cell = p_cells[i];

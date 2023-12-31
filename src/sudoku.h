@@ -13,6 +13,7 @@ struct Cell_impl
     int candidates[BOARD_SIZE];
     int value; // solved or 0
     bool fixed;
+    bool processed; 
     struct Cell_impl **unit;
 };
 

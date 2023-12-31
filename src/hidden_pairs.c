@@ -6,20 +6,20 @@
 #include "sudoku.h"
 
 
-bool is_hidden_pair(Cell **p_cells, int value1, int value2){ //check that if that row, column or box has enough 2 cells contain the hidden pair values.
+bool is_hidden_pair(Cell **p_cells, int value1, int value2){ 
     int count = 0;
     for (int i = 0; i < BOARD_SIZE; i++){
-        if(is_candidate(p_cells[i], value1) && is_candidate(p_cells[i], value2)){ // p_cells[i] is pointer to a cell in that row, column or box. If there is a cell contains both hidden pair values, then count += 1
+        if(is_candidate(p_cells[i], value1) && is_candidate(p_cells[i], value2)){ 
             count++;
         }
 
     }
-    return (count == 2); //return true if count = 2, else return false. It means if the row column or box has 2 cells contain the hidden pair values, then return true, else return false.
+    return (count == 2); 
 }
 
 
 bool is_in_cell(Cell *p_cell, int value1, int value2){
-    return (is_candidate(p_cell, value1) && is_candidate(p_cell, value2)); //return true if the cell contains the hidden pair values, else return false
+    return (is_candidate(p_cell, value1) && is_candidate(p_cell, value2)); 
 }
 
 int find_hidden_double_values(Cell **p_cells, int *hidden_double_values)

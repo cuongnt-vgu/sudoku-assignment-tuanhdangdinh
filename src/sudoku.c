@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
-
+#include "naked_pairs.h"
 #include "hidden_singles.h"
 
 int main(int argc, char **argv)

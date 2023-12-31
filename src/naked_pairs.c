@@ -32,13 +32,13 @@ int naked_pairs(SudokuBoard *board)
     }
     transverse_naked_pair(HEAD,board);
     free_naked_pair(HEAD);
-    //duplicate of 2 so /2
+ 
     return num_naked_pair/2;
 }
  
 bool naked_pairable(SudokuBoard *board, int idRow, int idCol, int idBox, int idCandidate1, int idCandidate2){
     int uniqueRow = 0, uniqueCol = 0, uniqueBox =0;
-    //transverse through same row
+
     for (int i = 0; i < BOARD_SIZE; i++){
         if (i == idCol) continue;
         Cell *cell = &board->data[idRow][i];
@@ -49,7 +49,7 @@ bool naked_pairable(SudokuBoard *board, int idRow, int idCol, int idBox, int idC
             uniqueRow++;
         }
     }
-    //transverse through same col
+  
      for (int i = 0; i < BOARD_SIZE; i++){
         if (i == idRow) continue;
         Cell *cell = &board->data[i][idCol];
@@ -60,7 +60,7 @@ bool naked_pairable(SudokuBoard *board, int idRow, int idCol, int idBox, int idC
             uniqueCol++;
         }
     }
-    //transverse through same box
+    
     int currRow = (int)(idBox/3)*3;
     int currCol = (idBox%3)*3;
  
@@ -97,10 +97,8 @@ void transverse_naked_pair(struct naked_pair_reserved *HEAD, SudokuBoard *board)
     }
 }
 void remove_candidate_naked_pair(struct naked_pair_reserved *HEAD, SudokuBoard *board){
-    // can only remove same row/col/box, n is case
-    // 0=row, 1=col, 2=box
     int n[3] = {0};
-    // avoid checking 2 consecutive node coz they are the same
+
     bool is_already_checked = false;
     if(!is_already_checked){
         if(HEAD->next == NULL) return;
@@ -112,12 +110,10 @@ void remove_candidate_naked_pair(struct naked_pair_reserved *HEAD, SudokuBoard *
         is_already_checked = true;
     }
     else is_already_checked = false;
-    // move through same row
     if(n[0] == 1){
         for (int i = 0; i<BOARD_SIZE; i++){
             if(i == HEAD->col) continue;
             Cell *cell = &board->data[HEAD->row][i];
-            //to avoid removing itself
             if(cell->num_candidates == 2
             && cell->candidates[HEAD->candidate1]==1
             && cell->candidates[HEAD->candidate2] == 1) continue;
@@ -132,7 +128,7 @@ void remove_candidate_naked_pair(struct naked_pair_reserved *HEAD, SudokuBoard *
         for (int i = 0; i<BOARD_SIZE; i++){
             if(i == HEAD->row) continue;
             Cell *cell = &board->data[i][HEAD->col];
-            //to avoid removing itself
+   
             if(cell->num_candidates == 2
             && cell->candidates[HEAD->candidate1]==1
             && cell->candidates[HEAD->candidate2] == 1) continue;
@@ -142,7 +138,7 @@ void remove_candidate_naked_pair(struct naked_pair_reserved *HEAD, SudokuBoard *
  
         }
     }
-    // move through same box
+
     if(n[2] == 1){
         int currRow = (int)(HEAD->box/3)*3;
         int currCol = (HEAD->box%3)*3;
@@ -150,7 +146,6 @@ void remove_candidate_naked_pair(struct naked_pair_reserved *HEAD, SudokuBoard *
             for(int j= currCol; j < currCol +3; j++){
                 if(i == HEAD->row && j == HEAD ->col) continue;
                 Cell *cell = &board->data[i][j];
-                //to avoid removing itself
                 if(cell->num_candidates == 2
                 && cell->candidates[HEAD->candidate1]==1
                 && cell->candidates[HEAD->candidate2] == 1) continue;
